@@ -1,0 +1,37 @@
+
+# Ambiente virtual
+venv/
+.env
+__pycache__/
+*.py[cod]
+*.sqlite3
+*.db
+
+# Arquivos temporários
+.DS_Store
+Thumbs.db
+*.log
+
+# Dados do Rasa
+models/
+*.json
+
+# Logs e dados locais
+logs/
+.nlu_cache/
+rasa.db
+rasa.lock
+
+# Arquivos de IDE
+.vscode/
+.idea/
+*.iml
+
+# Dados sensíveis e tokens
+*.secrets
+config.yaml
+credentials.yml
+
+# Dados de uso e estatísticas
+analytics/
+logs_anonimos/
