@@ -77,7 +77,7 @@ Acolha com presença, silêncio e frases abertas, quando necessário.
 ## Como Usar / Clonar Este Projeto
 
 ```bash
-git clone https://github.com/seu-usuario/escuta-ia.git
+git clone https://github.com/fabianofranca/escuta-ia.git
 cd escuta-ia
 python3 -m venv venv
 source venv/bin/activate   # ou venv\Scripts\activate no Windows
