@@ -13,7 +13,7 @@ Oferecer uma arquitetura leve, reutilizável, ética e acessível para acolhimen
 
 ## Arquitetura Técnica
 
-- **Linguagem:** Python  
+- **Linguagem:** Python 3.10.13
 - **Backend:** FastAPI (Railway)  
 - **NLU:** Rasa NLU  
 - **LLM atual:** Claude (via Together.ai)  

@@ -1,0 +1,97 @@
+version: "3.1"
+
+intents:
+  - saudacao
+  - despedida
+  - pedir_ajuda
+  - relato_tristeza
+  - relato_solidao
+  - relato_ansiedade
+  - relato_luto
+  - relato_crise
+  - ideacao_suicida
+  - autolesao
+  - informar_nome
+  - informar_tempo
+  - nlu_fallback
+
+entities:
+  - nome
+  - relacao
+  - data
+  - tempo
+  - evento
+
+slots:
+  nome:
+    type: text
+    influence_conversation: true
+    mappings:
+      - type: from_entity
+        entity: nome
+
+  relacao:
+    type: text
+    influence_conversation: false
+    mappings:
+      - type: from_entity
+        entity: relacao
+
+  data:
+    type: text
+    influence_conversation: false
+    mappings:
+      - type: from_entity
+        entity: data
+
+  tempo:
+    type: text
+    influence_conversation: false
+    mappings:
+      - type: from_entity
+        entity: tempo
+
+  evento:
+    type: text
+    influence_conversation: false
+    mappings:
+      - type: from_entity
+        entity: evento
+
+responses:
+  utter_saudacao:
+    - text: "Olá! Como você está se sentindo hoje?"
+
+  utter_despedida:
+    - text: "Tudo bem, estarei por aqui se quiser conversar depois."
+
+  utter_pedir_ajuda:
+    - text: "Claro, estou aqui para te ouvir. Quer me contar o que está acontecendo?"
+
+  utter_relato_tristeza:
+    - text: "Sinto muito por isso. Fico aqui com você, se quiser conversar."
+
+  utter_relato_solidao:
+    - text: "A solidão pode ser difícil. Você não está sozinho aqui."
+
+  utter_relato_ansiedade:
+    - text: "A ansiedade pode ser sufocante, mas você está sendo corajoso em falar sobre isso."
+
+  utter_relato_luto:
+    - text: "Lamento muito sua perda. Estou aqui para ouvir o que quiser compartilhar."
+
+  utter_relato_crise:
+    - text: "Parece que você está passando por um momento muito difícil. Fica comigo, vamos conversar."
+
+  utter_ideacao_suicida:
+    - text: "Sinto muito que você esteja se sentindo assim. Você já pensou em conversar com o CVV no 188? Eles estão disponíveis 24h."
+
+  utter_autolesao:
+    - text: "Entendo que você esteja sentindo muita dor. Se quiser, podemos conversar sobre o que te levou a isso."
+
+  utter_default:
+    - text: "Desculpe, não entendi bem. Pode tentar dizer de outra forma?"
+
+session_config:
+  session_expiration_time: 60
+  carry_over_slots_to_new_session: true

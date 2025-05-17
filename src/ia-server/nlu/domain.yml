@@ -1,5 +1,0 @@
-intents:
-  - desabafo
-responses:
-  utter_desabafo:
-    - text: 'Você quer falar sobre isso?'

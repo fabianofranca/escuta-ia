@@ -1,6 +1,6 @@
 
 # Ambiente virtual
-venv/
+.venv/
 .env
 __pycache__/
 *.py[cod]
@@ -12,15 +12,13 @@ __pycache__/
 Thumbs.db
 *.log
 
-# Dados do Rasa
-models/
-*.json
-
 # Logs e dados locais
 logs/
 .nlu_cache/
 rasa.db
 rasa.lock
+.rasa/
+results/
 
 # Arquivos de IDE
 .vscode/

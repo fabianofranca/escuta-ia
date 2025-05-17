@@ -1,0 +1,403 @@
+version: "3.1"
+
+nlu:
+
+# --- INTENÇÕES GERAIS ---
+
+- intent: saudacao
+  examples: |
+    - oi
+    - olá
+    - bom dia
+    - boa tarde
+    - boa noite
+    - tudo bem?
+    - como vai?
+    - alguém por aí?
+    - tem alguém pra conversar?
+    - bom dia, posso falar?
+    - estou chegando agora
+    - queria conversar
+    - espero que esteja tudo bem
+    - tudo certo por aí?
+    - e aí?
+    - queria dizer oi
+    - vim falar com você
+    - posso entrar?
+    - com licença
+    - preciso de uma palavra amiga
+    - vim desabafar um pouco
+    - oiii 💬
+    - ei, tem alguém aí?
+    - cheguei 😔
+    - eae
+
+- intent: despedida
+  examples: |
+    - tchau
+    - até mais
+    - nos falamos depois
+    - vou descansar um pouco
+    - por hoje é só
+    - estou indo
+    - vou tentar dormir agora
+    - preciso sair, mas agradeço
+    - vou pensar em tudo que conversamos
+    - até a próxima
+    - falou 🫂
+    - até qualquer hora
+
+- intent: agradecimento
+  examples: |
+    - obrigado por me ouvir
+    - valeu por escutar
+    - gratidão
+    - tmj
+    - me senti acolhido, obrigado
+    - obrigado mesmo    
+    - obrigado pela conversa
+    - você me ajudou muito, obrigado
+    - foi bom conversar com você
+
+- intent: pedir_ajuda
+  examples: |
+    - estou precisando de ajuda
+    - pode me escutar?
+    - posso conversar com você?
+    - quero desabafar
+    - não estou aguentando mais
+    - estou em um momento difícil
+    - me escuta, por favor
+    - não tenho com quem falar
+    - estou mal
+    - preciso de alguém agora
+    - estou no limite
+    - queria falar com alguém que entenda
+    - tem como você me ouvir?
+    - posso contar o que estou sentindo?
+    - tô precisando abrir meu coração
+    - só queria alguém pra ouvir
+    - você pode estar comigo um pouco?
+    - é difícil pedir ajuda, mas aqui estou
+    - não sei nem por onde começar, mas preciso falar
+    - me sinto perdido
+    - preciso conversar
+    - queria conversar com alguém
+    - estou aqui para desabafar
+    - me deixa abrir o coração
+    - posso pedir um tempo seu?
+    - so qria algeum pra ouvi
+    - ajuda eu, por favor
+    - n sei mais o q fazer
+    - alguém me escuta?
+    - escuta eu 🥺
+
+# --- INTENÇÕES EMOCIONAIS ---
+
+- intent: relato_tristeza
+  examples: |
+    - estou muito triste
+    - tenho chorado todos os dias
+    - nada faz sentido
+    - perdi a vontade de viver
+    - me sinto vazio por dentro
+    - tá tudo cinza na minha cabeça
+    - não consigo sentir alegria em nada
+    - me sinto um peso
+    - dói até respirar
+    - minha energia acabou
+    - tudo parece pesado
+    - não vejo graça em mais nada
+    - é uma tristeza que não passa
+    - sinto um aperto no peito
+    - parece que tô afundando
+    - queria me sentir melhor
+    - me sinto inútil
+    - todo dia é uma batalha pra levantar da cama
+    - ninguém percebe o quanto estou mal
+    - minha vida perdeu a cor
+    - ja nem sei oq q sinto mas
+    - me senti um peso hj
+    - to ruimm hj
+    - tô mal e nem sei explicar
+    - parece que nada importa
+    - tô triste o tempo todo, até quando rio
+    - eu tô me sentindo vazio
+    - pq doi tanto assim
+    - me sinto um nada, sério
+    - chorando sem saber pq 😢
+    - hj tá osso
+    - to só o pó
+
+- intent: relato_solidao
+  examples: |
+    - me sinto completamente sozinho
+    - ninguém me procura
+    - parece que não existo pra ninguém
+    - estou me sentindo abandonado
+    - é como se eu não fizesse falta
+    - ninguém se importa comigo
+    - estou cercado de gente mas me sinto só
+    - tenho amigos, mas não me sinto conectado
+    - queria alguém aqui comigo
+    - tô cansado de estar sozinho
+    - até quando vou me sentir assim?
+    - não tenho com quem contar
+    - parece que ninguém me vê
+    - minha solidão grita
+    - ninguém nota minha ausência
+    - até quando vou fingir que tá tudo bem?
+    - falo com pessoas mas não me sinto ouvido
+    - sinto falta de um abraço
+    - só queria sentir que pertenço a algum lugar
+    - estou invisível
+    - é como se eu não existisse
+    - me sinto invisível
+    - ninguém me vê
+    - parece que sou um fantasma
+    - me sinto sozinho mesmo rodeado de pessoas
+    - ninguém me procura mais
+    - ninguém me nota mais
+    - estou sozinho mesmo com gente por perto
+    - parece que não faço falta pra ninguém
+    - t ninguem pra fal
+    - ninguem presta atença em mim
+    - ninguém liga pra mim de verdade
+    - tô sempre sobrando
+    - todo mundo tem alguém, menos eu
+    - se eu desaparecesse, ninguém ia notar
+    - às vezes penso que sumir seria melhor
+    - acho que ninguém notaria minha ausência
+
+- intent: relato_ansiedade
+  examples: |
+    - estou tendo uma crise de ansiedade
+    - sinto que meu coração vai sair do peito
+    - estou inquieto e sem ar
+    - não consigo me concentrar em nada
+    - meu corpo tá tremendo e suando
+    - estou paralisado de medo
+    - sinto que algo ruim vai acontecer
+    - tenho pensamentos acelerados
+    - minha cabeça não para
+    - sinto uma pressão no peito
+    - não consigo dormir
+    - estou muito agitado
+    - meu estômago revira quando penso
+    - fico tenso o tempo todo
+    - qualquer coisa me assusta
+    - parece que vou desmaiar
+    - estou sempre preocupado
+    - tenho medo sem motivo
+    - estou à flor da pele
+    - é como viver em alerta o tempo todo
+    - meu coração não para de acelerar
+    - estou tremendo e não sei por quê
+    - estou em pânico
+    - tô em pânico
+    - me sinto em pânico
+    - tô em pânico mesmo
+    - entrando em pânico
+
+- intent: relato_perda
+  examples: |
+    - minha esposa me largou
+    - perdi alguém muito importante pra mim
+    - desde que ele se foi, nada mais tem graça
+    - a gente estava bem, depois tudo começou a mudar
+    - perdi quem eu mais amava
+    - ele não está mais aqui e isso me dói
+    - desde que ela me deixou, tudo desmoronou
+    - não sei lidar com essa perda
+    - me sinto vazio desde que ele se foi
+    - perdi o chão
+    - tudo mudou desde aquele dia
+    - ela simplesmente sumiu da minha vida
+    - ele partiu e ficou esse vazio
+    - não esperava que acabasse assim
+    - me deixaram sozinho
+    - não tive chance de dizer adeus
+    - ele foi embora pra sempre
+    - o fim foi tão repentino
+    - não consigo aceitar o que aconteceu
+    - é como se uma parte de mim tivesse sido arrancada
+    - é como se tivesse perdido um pedaço de mim
+    - não sei se vou conseguir seguir em frente
+    - ela não está mais aqui e tá doendo demais
+    - ele se foi e eu não consigo aceitar
+    - me despedi, mas ainda não parece real
+    - parece que tudo ficou cinza depois daquilo
+    - dói lembrar que não vai voltar mais
+    - tudo acabou de repente e me quebrou por dentro
+    - me sinto sozinho depois que ela se foi
+    - ele era meu tudo e agora não tenho nada
+    - perdi meu [pai](parente) há pouco tempo
+    - minha [mãe](parente) faleceu e estou tentando lidar
+    - desde que ele morreu, tudo parece vazio
+    - ela se foi pra sempre e meu coração tá em pedaços
+    - fui no enterro hoje, ainda não caiu a ficha
+    - nunca pensei que perderia alguém tão cedo
+    - ele morreu dormindo e ainda não acredito
+    - a dor da perda é insuportável às vezes
+    - sinto falta de ouvir a voz dele todos os dias
+    - meu [avô](parente) se foi e tá difícil aceitar
+    - perdi minha [irmã](parente) num acidente
+    - minha [tia](parente) morreu essa semana
+
+# --- INTENÇÕES DE CRISE ---
+
+- intent: relato_crise
+  examples: |
+    - estou à beira de um colapso
+    - não aguento mais
+    - minha cabeça está um caos
+    - estou desesperado
+    - parece que tudo vai explodir dentro de mim
+    - estou perdendo o controle
+    - tô surtando
+    - sinto que vou enlouquecer
+    - estou em pânico
+    - nada faz sentido e tudo dói
+    - tô quebrado por dentro
+    - não sei mais o que fazer
+    - estou gritando por dentro
+    - cheguei no meu limite
+    - sinto que vou ter um ataque
+    - preciso de ajuda agora
+    - socorro
+    - tô à deriva
+    - não sei lidar com isso sozinho
+    - é uma dor insuportável
+    - estou surtando
+    - minha cabeça vai explodir
+    - não estou aguentando mais
+    - estou completamente fora de mim
+    - parece que estou caindo num buraco
+    - estou entrando em colapso
+    - axo q to bugado da kbça
+    - nd fz sentido mds
+    - acho que tô pirando
+    - minha mente tá um caos
+    - tô surtando e ninguém percebe
+    - não consigo respirar direito, parece que vou explodir
+    - minha cabeça não para e eu não sei o que fazer
+    - perdi o controle total
+    - não estou mais aguentando
+    - não consigo mais segurar
+    - tô no limite de verdade
+    - preciso de ajuda urgente
+    - tô surtando de verdade
+    - não tô aguentando mais nada
+    - não tô dando conta
+    - não tô suportando mais
+
+- intent: ideacao_suicida
+  examples: |
+    - queria sumir pra sempre
+    - não vejo mais sentido em viver
+    - pensei em acabar com tudo
+    - seria melhor se eu não estivesse aqui
+    - só queria dormir e não acordar
+    - sinto que minha vida acabou
+    - estou pensando em me matar
+    - talvez o mundo fique melhor sem mim
+    - ninguém sentiria minha falta
+    - queria apagar tudo
+    - estou cansado de viver
+    - queria que tudo acabasse
+    - não quero mais continuar
+    - pensei em como seria se eu não existisse
+    - estou planejando sumir
+    - estou no fim da linha
+    - penso nisso todos os dias
+    - ninguém se importa mesmo
+    - talvez eu desista
+    - tô com ideias perigosas
+    - pensei em dar fim a tudo
+    - só queria morrer
+    - keria dormi e n acorda
+    - tenho vtd d sumi
+    - cansadao da vida viu
+    - já pensei em sumir e nunca mais voltar
+    - às vezes queria dormir pra sempre
+    - cansei de fingir que tá tudo bem
+    - tenho pensado em acabar com tudo, de verdade
+    - se eu desaparecesse, ninguém ia notar
+    - ngm vai notar se eu sumir
+    - só qria dormir e n acorda
+    - ninguém notaria se eu sumisse
+    - não faria falta pra ninguém
+    - já desejei desaparecer
+    - às vezes acho que ninguém se importaria se eu sumisse
+
+- intent: autolesao
+  examples: |
+    - me machuquei hoje
+    - cortei meu braço de novo
+    - estou com vontade de me ferir
+    - me bati de raiva
+    - me automutilei ontem à noite
+    - dói menos quando me machuco
+    - pelo menos a dor física eu controlo
+    - é um jeito de aliviar a dor
+    - só sinto algo quando me machuco
+    - tenho marcas novas
+    - me corto pra esquecer
+    - é minha forma de lidar
+    - fiz isso de novo
+    - me arranhei todo
+    - bati em mim mesmo
+    - me feri pra tentar aliviar
+    - ninguém entende porque faço isso
+    - escondo os cortes com manga longa
+    - não queria fazer isso, mas fiz
+    - é a única coisa que me acalma
+    - me machuquei de novo, mas ninguém vê
+    - às vezes me corto pra aliviar
+    - só sinto alguma coisa quando me machuco
+    - bati em mim mesmo hoje
+    - me arranhei todo sem nem pensar
+    - me machuquei feio ontem
+    - machucando pra ver se passa
+
+# --- INTENÇÕES INFORMATIVAS ---
+
+- intent: informar_nome
+  examples: |
+    - me chamo [João](nome)
+    - pode me chamar de [Ana](nome)
+    - sou o [Carlos](nome)
+    - meu nome é [Fernanda](nome)
+    - [Lúcia](nome), prazer
+    - aqui é o [Miguel](nome)
+    - meu nome é [Sofia](nome)
+    - sou [Lucas](nome)
+
+- intent: informar_tempo
+  examples: |
+    - isso começou [ontem](data)
+    - estou assim desde [segunda-feira](data)
+    - sinto isso há [três dias](tempo)
+    - está difícil desde [o mês passado](data)
+    - tenho sentido isso há [algumas semanas](tempo)
+    - desde [a morte da minha mãe](evento) eu não melhorei
+    - faz [uns dois meses](tempo) que me sinto assim
+    - desde que perdi o [emprego](evento) tudo piorou
+    - me sinto assim há duas semanas
+    - desde segunda estou assim
+    - tô mal desde ontem
+    - tem sido assim desde a semana passada
+    - isso começou quando perdi meu avô
+
+- intent: nlu_fallback
+  examples: |
+    - ajshdjak
+    - kkkk
+    - não sei
+    - hmmm
+    - deixa pra lá
+    - esquece
+    - ???
+    - bleh
+    - qualquer coisa
+    - tô testando
