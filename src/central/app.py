@@ -81,7 +81,7 @@ Lembre-se: escuta é mais importante que resposta.
 async def nlu(message: str):
     try:
         response = requests.post(
-            os.environ.get("NLU_HOST", "http://localhost:10000/model/parse"),
+            os.environ.get("NLU_HOST", "http://localhost:10000") + "/model/parse",
             json={"text": message},
             timeout=5
         )
