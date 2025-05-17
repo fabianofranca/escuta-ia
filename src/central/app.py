@@ -3,6 +3,14 @@ from pydantic import BaseModel
 from together import Together
 import requests
 import os
+import logging
+
+logging.basicConfig(
+    level=logging.INFO,
+    format="%(asctime)s - %(levelname)s - %(message)s"
+)
+
+logger = logging.getLogger("escuta-ia")
 
 app = FastAPI()
 
@@ -80,13 +88,17 @@ Lembre-se: escuta é mais importante que resposta.
 
 async def nlu(message: str):
     try:
+        nlu_host = os.environ.get("NLU_HOST", "http://localhost:10000")
+        logger.info(f"Start request to NLU {nlu_host}")
+
         response = requests.post(
-            os.environ.get("NLU_HOST", "http://localhost:10000") + "/model/parse",
+            nlu_host + "/model/parse",
             json={"text": message},
             timeout=5
         )
         response.raise_for_status()
-    except requests.exceptions.RequestException:
+    except requests.exceptions.RequestException as e:
+        logger.info(f"NLU error: {str(e)}")
         return None, None
 
     nlu_data = response.json()
