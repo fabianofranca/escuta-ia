@@ -4,4 +4,4 @@
 chmod +x start.sh
 
 # Inicia apenas o servidor da central
-uvicorn app:app --reload --host 0.0.0.0 --port 8000
+uvicorn app:app --reload --host 0.0.0.0 --port 10000

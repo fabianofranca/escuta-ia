@@ -2,6 +2,7 @@ from fastapi import FastAPI
 from pydantic import BaseModel
 from together import Together
 import requests
+import os
 
 app = FastAPI()
 
@@ -80,7 +81,7 @@ Lembre-se: escuta é mais importante que resposta.
 async def nlu(message: str):
     try:
         response = requests.post(
-            "http://localhost:5005/model/parse",
+            os.environ.get("NLU_HOST", "http://localhost:10000/model/parse"),
             json={"text": message},
             timeout=5
         )
@@ -144,3 +145,7 @@ class Llm:
             f"A intenção detectada foi: {intent}, com confiança de {confidence:.2f}.\n"
             f"{context}"            
         )
+
+@app.get("/health")
+async def health_check():
+    return {"status": "ok"}
