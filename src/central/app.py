@@ -32,40 +32,12 @@ async def handle_message(data: ChatRequest):
             "message": "Desculpe, estou com dificuldade para entender agora. Você pode tentar novamente?"
         }
 
-    client = Together()
-
-    resume_context = """
-Depois da resposta, gere um novo resumo da conversa até agora. Use o seguinte formato:-[Resumo]-[resumo atualizado]
-
-Esse resumo deve:
-- Ser emocional, não técnico;
-- Evitar repetições de sentimentos já descritos;
-- Acrescentar novas nuances, se surgirem;
-- Mencionar o efeito da resposta do assistente (sem citar frases);
-- Indicar se o usuário sinaliza melhora, recuo, cansaço ou desejo de encerrar.
-
-Exemplo:
--[Resumo]-O usuário demonstrou sensação de invisibilidade e tristeza profunda. Expressou desejo de desaparecer por um tempo. O assistente acolheu com calma e validou o cansaço emocional, o que parece ter trazido um leve alívio.
-
-Se não houver novas emoções ou mudanças, mantenha o resumo anterior.
-
-Caso contrário, mantenha o acolhimento sem repetir a sugestão de ajuda externa.
-
-Lembre-se: escuta é mais importante que resposta.
-"""
-
     messages = [
             {"role": "system", "content": Llm.get(intent, confidence, resume, cvv)},
-            {"role": "user", "content": data.message},
-            {"role": "system", "content": resume_context}            
+            {"role": "user", "content": f"{data.message}[intent: {intent}][confidence: {confidence}]" }
             ]
 
-    llm_response = client.chat.completions.create(
-        model="meta-llama/Llama-3.3-70B-Instruct-Turbo",
-        messages= messages
-    )
-
-    raw_response = llm_response.choices[0].message.content
+    raw_response = llm_api(messages)
 
     fallback = "Desculpa, acho que tive uma pequena dificuldade para entender ou responder agora. Mas estou aqui com você, e quero muito continuar essa conversa. Se puder, me diga um pouco mais sobre o que está sentindo?"
 
@@ -88,7 +60,7 @@ Lembre-se: escuta é mais importante que resposta.
 
 async def nlu(message: str):
     try:
-        nlu_host = os.environ.get("NLU_HOST", "http://localhost:10000")
+        nlu_host = os.environ.get("NLU_HOST", "http://localhost:5005")
         logger.info(f"Start request to NLU {nlu_host}")
 
         response = requests.post(
@@ -149,14 +121,75 @@ class Llm:
             Llm.LOW_CONFIDENCE if 0.4 <= confidence < 0.7 else
             Llm.UNCOMPREHENDED
             )
+
+        resume_context = """
+Depois da resposta, gere um novo resumo da conversa até agora. Use o seguinte formato:-[Resumo]-[resumo atualizado]
+
+Esse resumo deve:
+- Ser emocional, não técnico;
+- Evitar repetições de sentimentos já descritos;
+- Acrescentar novas nuances, se surgirem;
+- Mencionar o efeito da resposta do assistente (sem citar frases);
+- Indicar se o usuário sinaliza melhora, recuo, cansaço ou desejo de encerrar.
+
+Exemplo:
+-[Resumo]-O usuário demonstrou sensação de invisibilidade e tristeza profunda. Expressou desejo de desaparecer por um tempo. O assistente acolheu com calma e validou o cansaço emocional, o que parece ter trazido um leve alívio.
+
+Se não houver novas emoções ou mudanças, mantenha o resumo anterior.
+
+Se você sugeriu ajuda externa, como o CVV, e o usuário aceitou, mencione isso no resumo. Se o usuário não aceitou a sugestão de ajuda externa, não mencione isso no resumo.	
+
+Caso contrário, mantenha o acolhimento sem repetir a sugestão de ajuda externa.
+
+Lembre-se: escuta é mais importante que resposta.
+"""
             
         return (
-            f"Você é um atendente emocional de uma ONG que oferece apoio emocional gratuito e sigiloso para pessoas em sofrimento, principalmente com pensamentos suicidas.  Sempre responda em português do Brasil.\n"
-            f"{'Não cite a CVV nessa mensagem' if cvv and not force_cvv else ''}"            
-            f"O usuário compartilhou: {resume or 'nenhuma informação ainda.'}"
-            f"A intenção detectada foi: {intent}, com confiança de {confidence:.2f}.\n"
-            f"{context}"            
+            f"Você é um atendente emocional de uma ONG que oferece apoio emocional gratuito e sigiloso para pessoas em sofrimento, principalmente com pensamentos suicidas.\n"
+            f"Sempre responda em português do Brasil.\n"
+            f"A intenção detectada que você vai utilizar para gerar a mensagem para o usuário é {intent}, com confiança de {confidence:.2f}.\n"
+            #f"{'Não cite a CVV nessa mensagem' if cvv and not force_cvv else ''}"            
+            f"Use esse resumo para evitar repetições na mensagem enviado para o usuário e elaborar mensagens mais conectadas com o que foi dito: {resume or 'nenhuma informação ainda.'}\n"
+            f"{context}\n"
+            f"{resume_context}\n"
         )
+
+def llm_api(messages):
+    if os.environ.get("LLM_API", "TOGETHER").upper() == "TOGETHER":
+        return together_api(messages)
+    else:
+        return open_api(messages)
+
+def open_api(messages):
+    headers = {
+        "Authorization": f"Bearer {os.environ.get('OPENAI_API_KEY')}",
+        "Content-Type": "application/json"
+    }
+
+    payload = {
+        "model": "gpt-4o",
+        "messages": messages,
+        "temperature": 0.7
+    }
+
+    response = requests.post(
+        "https://api.openai.com/v1/chat/completions",
+        headers=headers,
+        json=payload
+    )
+
+    return response.json()["choices"][0]["message"]["content"]
+
+def together_api(messages):
+    client = Together()
+
+    response = client.chat.completions.create(
+        model="meta-llama/Llama-3.3-70B-Instruct-Turbo",
+        messages= messages
+    )
+
+    return response.choices[0].message.content
+    
 
 @app.get("/health")
 async def health_check():

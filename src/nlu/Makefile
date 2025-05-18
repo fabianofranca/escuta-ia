@@ -6,3 +6,6 @@ run:
 
 shell:
 	rasa shell nlu
+
+publish:
+	ngrok http --url=stable-bonefish-related.ngrok-free.app 5005
