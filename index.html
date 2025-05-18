@@ -1,34 +1,44 @@
-<!doctype html>
-  <html lang="pt-BR">
-    <head></head>
-    <body>
-      <script src="https://cdn.botpress.cloud/webchat/v2.2/inject.js"></script>
-      <script defer>
-        window.botpress.on("webchat:ready", () => {
-          botpress.open();
-        });
-        window.botpress.init({
-          "botId": "53901338-dae0-48d3-a715-a2cdd71c33ad",
-          "configuration": {
-            "composerPlaceholder": "Digite sua mensagem...",
-            "botName": "Escuta IA",
-            "botDescription": "ðŸŒŸ OlÃ¡, eu sou o Escuta IA.\nEstou aqui para te ouvir com calma, sem julgamentos e no seu tempo.\nSe quiser conversar, desabafar ou simplesmente ser ouvido, Ã© sÃ³ comeÃ§ar a digitar. ðŸ’¬",
-            "fabImage": "https://files.bpcontent.cloud/2025/05/18/04/20250518043205-MDM4R8Q8.png",
-            "website": {},
-            "email": {},
-            "phone": {},
-            "termsOfService": {},
-            "privacyPolicy": {},
-            "color": "#00b2ff",
-            "variant": "soft",
-            "themeMode": "light",
-            "fontFamily": "inter",
-            "radius": 1.5,
-            "storageLocation": "sessionStorage"
-          },
-          "clientId": "d757fda8-deff-41da-9648-4d7119b6448b"
-        });
-      </script>
-    </body>
-  </html>
-</div>
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8">
+  <title>Escuta IA</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <style>
+    body {
+      font-family: sans-serif;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      height: 100vh;
+      margin: 0;
+      background-color: #f4f4f4;
+    }
+
+    h1 {
+      color: #333;
+    }
+
+    a.button {
+      display: inline-block;
+      padding: 12px 24px;
+      background-color: #0077cc;
+      color: #fff;
+      text-decoration: none;
+      font-size: 18px;
+      border-radius: 8px;
+      transition: background-color 0.3s ease;
+    }
+
+    a.button:hover {
+      background-color: #005fa3;
+    }
+  </style>
+</head>
+<body>
+  <h1>Bem-vindo ao Escuta IA</h1>
+  <p>Quando precisar conversar, estamos aqui para você.</p>
+  <a class="button" href="https://cdn.botpress.cloud/webchat/v2.5/shareable.html?configUrl=https://files.bpcontent.cloud/2025/05/18/04/20250518042739-44V0PCH3.json">Abrir o Chat</a>
+</body>
+</html>
