@@ -16,7 +16,7 @@ class Nlu:
             response.raise_for_status()
         except requests.exceptions.RequestException as e:
             logger.info(f"NLU error: {str(e)}")
-            return "nlu_fallback", 0.0
+            return None, None
 
         nlu_data = response.json()
         intent = nlu_data.get("intent", {}).get("name", "nlu_fallback")

@@ -2,12 +2,18 @@ from fastapi import FastAPI
 from pydantic import BaseModel
 from nlu import nlu
 from llm import llm
+from logger import logger
+from textresources import TextResources
 import json
+
+texts = TextResources()
 
 app = FastAPI()
 
 class ChatRequest(BaseModel):
     message: str
+    intent: str
+    confidence: float
 
 previous_response = {}
 
@@ -15,24 +21,41 @@ previous_response = {}
 async def handle_message(data: ChatRequest):
     global previous_response
 
-    intent, confidence = await nlu.parse(data.message)
+    try:
 
-    user_content = (
-        f"Resumo anterior: {previous_response.get('resume') or 'Ainda não tem resumo' }\n"
-        f"intent: {intent}\n"
-        f"confidence: {confidence}\n"
-        f"Última mensagem: {previous_response.get('message') or 'Não há mensagem anterior'}\n"
-        f"Nova mensagem: {data.message}"
-    )
+        intent, confidence = await nlu.parse(data.message)
 
-    messages = [
-            {"role": "system", "content": llm.context(intent, confidence)},
-            {"role": "user", "content": user_content}
-        ]
+        if intent is None:
+            intent = data.intent
+            confidence = data.confidence
 
-    raw = await llm.response(messages)
+        user_content = (
+            f"Resumo anterior: {previous_response.get('resume') or 'Ainda não tem resumo' }\n"
+            f"intent: {intent}\n"
+            f"confidence: {confidence}\n"
+            f"Última mensagem: {previous_response.get('message') or 'Não há mensagem anterior'}\n"
+            f"Nova mensagem: {data.message}"
+        )
 
-    payload = json.loads(raw.strip().removeprefix("```json").removesuffix("```").strip())
+        messages = [
+                {"role": "system", "content": llm.context(intent, confidence)},
+                {"role": "user", "content": user_content}
+            ]
+
+        raw = await llm.response(messages)
+
+        payload = json.loads(raw.strip().removeprefix("```json").removesuffix("```").strip())
+
+    except Exception as e:
+        payload = {
+            "response": texts.get("fallback", "llm"),
+            "message": "",
+            "intent": "nlu_fallback",
+            "confidence": 0.0,
+            "resume": ""
+        }
+
+        logger.error(f"Handle message error: {e}")
 
     previous_response = {
         "response": payload["response"],
