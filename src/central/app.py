@@ -38,6 +38,9 @@ async def handle_message(data: ChatRequest):
             intent = data.intent
             confidence = data.confidence
 
+        if intent is "saudacao":
+            previous_response = {}
+            
         user_content = (
             f"Resumo anterior: {previous_response.get('resume') or 'Ainda não tem resumo' }\n"
             f"intent: {intent}\n"
