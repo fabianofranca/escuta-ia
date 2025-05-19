@@ -5,6 +5,7 @@ from llm import llm
 from logger import logger
 from textresources import TextResources
 import json
+import os
 
 texts = TextResources()
 
@@ -50,7 +51,7 @@ async def handle_message(data: ChatRequest):
                 {"role": "user", "content": user_content}
             ]
 
-        logger.info(f"Starting request to LLM: {os.environ.get("LLM_API", "TOGETHER")}")
+        logger.info(f"Starting request to LLM: {os.environ.get('LLM_API', 'TOGETHER')}")
 
         raw = await llm.response(messages)
 
