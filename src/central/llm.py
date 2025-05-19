@@ -27,7 +27,6 @@ class Llm:
                 texts.get("context", "seriousHighConfidence") if confidence >= 0.5 else
                 texts.get("context", "seriousLowConfidence")
             )
-            print(context)
         else:
             context = (
                 texts.get("context", "highConfidence") if confidence >= 0.9 else

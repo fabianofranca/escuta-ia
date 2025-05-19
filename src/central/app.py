@@ -44,9 +44,15 @@ async def handle_message(data: ChatRequest):
 
         raw = await llm.response(messages)
 
-        payload = json.loads(raw.strip().removeprefix("```json").removesuffix("```").strip())
+        clean_raw = raw.strip().removeprefix("```json").removesuffix("```").strip()
+
+        logger.info(f"LLM Response:\n{clean_raw}")
+
+        payload = json.loads(clean_raw)
 
     except Exception as e:
+        logger.error(f"Handle message error: {e}")
+
         payload = {
             "response": texts.get("fallback", "llm"),
             "message": "",
@@ -54,8 +60,6 @@ async def handle_message(data: ChatRequest):
             "confidence": 0.0,
             "resume": ""
         }
-
-        logger.error(f"Handle message error: {e}")
 
     previous_response = {
         "response": payload["response"],
