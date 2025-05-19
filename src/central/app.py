@@ -21,6 +21,14 @@ previous_response = {}
 async def handle_message(data: ChatRequest):
     global previous_response
 
+    fallback = {
+        "response": texts.get("fallback", "llm"),
+        "message": "",
+        "intent": "nlu_fallback",
+        "confidence": 0.0,
+        "resume": ""
+    }
+
     try:
 
         intent, confidence = await nlu.parse(data.message)
@@ -42,7 +50,11 @@ async def handle_message(data: ChatRequest):
                 {"role": "user", "content": user_content}
             ]
 
+        logger.info(f"Starting request to LLM: {os.environ.get("LLM_API", "TOGETHER")}")
+
         raw = await llm.response(messages)
+
+        logger.info(f"LLM Response successfully")
 
         clean_raw = raw.strip().removeprefix("```json").removesuffix("```").strip()
 
@@ -53,20 +65,12 @@ async def handle_message(data: ChatRequest):
     except Exception as e:
         logger.error(f"Handle message error: {e}")
 
-        payload = {
-            "response": texts.get("fallback", "llm"),
-            "message": "",
-            "intent": "nlu_fallback",
-            "confidence": 0.0,
-            "resume": ""
-        }
-
     previous_response = {
-        "response": payload["response"],
-        "message": payload["message"],
-        "intent": payload["intent"],
-        "confidence": payload["confidence"],
-        "resume": payload["resume"]
+        "response": payload.get("response") or fallback["response"],
+        "message": payload.get("message") or fallback["message"],
+        "intent": payload.get("intent") or fallback["intent"],
+        "confidence": payload.get("confidence") or fallback["confidence"],
+        "resume": payload.get("resume") or fallback["resume"]
     }
 
     return previous_response
